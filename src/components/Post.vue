@@ -123,6 +123,8 @@ export default {
           this.content = ''
           this.name = ''
           this.dialog = false
+          this.post.commentsCount++
+          element.commentsCount++
         }
       })
 
