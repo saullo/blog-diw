@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card>
+      <v-img :src="image"/>
       <v-card-title primary-title>
         <div>
           <h3 class="headline mb-0">Criar uma postagem</h3>
@@ -10,6 +11,7 @@
         <v-form v-on:submit.prevent="validate()">
           <v-text-field label="Titulo" box name="title" v-model="title" v-validate="'required'" :error-messages="errors.collect('title')"/>
           <v-textarea label="Conteudo" box name="content" v-model="content" v-validate="'required'" :error-messages="errors.collect('content')"/>
+          <input type="file" @change="loadimage($event)" v-validate="'required'">
           <v-btn type="submit" outline color="primary" :disabled="loading" :loading="loading">Postar</v-btn>
         </v-form>
       </v-card-text>
@@ -25,6 +27,7 @@ export default {
       title: '',
       content: '',
       loading: false,
+      image: ''
     }
   },
   methods: {
@@ -51,7 +54,8 @@ export default {
         commentsCount: 0,
         liked: false,
         comments: [],
-        date: fullDate
+        date: fullDate,
+        image: this.image
       }
 
       posts.unshift(post)
@@ -60,8 +64,17 @@ export default {
       setTimeout(() => {
         this.$router.push('/')
       }, 1000)
+    },
+    loadimage(e1) {
+      var filename = e1.target.files[0];
+      var fr = new FileReader();
+      fr.onload = (event) => {
+        this.image = event.target.result
+      };
+      fr.readAsDataURL(filename);
     }
-  }
+
+  },
 }
 </script>
 

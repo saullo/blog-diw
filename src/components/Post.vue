@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card class="mb-2">
-      <v-img src="https://picsum.photos/500" aspect-ratio="2"></v-img>
+      <v-img :src="image" aspect-ratio="2"></v-img>
       <v-card-title primary-title>
         <div>
           <h3 class="headline mb-0">{{ post.title }}</h3>
@@ -75,6 +75,11 @@ export default {
       name: '',
       content: '',
       dialog: false
+    }
+  },
+  computed: {
+    image () {
+      return this.post.image != null ? this.post.image : 'https://picsum.photos/500'
     }
   },
   methods: {
